@@ -118,7 +118,7 @@ function removeFromCart(index) {
 function finalizarCompra() {
     const confirmation = confirm("Compra finalizada! Obrigado pela preferência.");
     if (confirmation) {
-        window.location.href = "../html/final.html";
+        window.location.href = "final.html";
     }
 }
 
