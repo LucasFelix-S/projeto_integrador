@@ -2,18 +2,15 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import psycopg2
-import hashlib
+import os
 
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="projeto_integrador",
-    user="postgres",
-    password="!#Y1e3xbf4"
-)
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+conn = psycopg2.connect(DATABASE_URL)
 cursor = conn.cursor()
 
 @app.route('/api/register', methods=['POST'])
