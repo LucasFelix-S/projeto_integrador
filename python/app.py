@@ -21,16 +21,14 @@ def register():
         email = data.get('email')
         senha = data.get('senha')
 
-        hashed_password = bcrypt.generate_password_hash(senha).decode('utf-8')
-
         cursor.execute(
             "INSERT INTO Cliente (nome, email, senha) VALUES (%s, %s, %s)",
-            (nome, email, hashed_password)
+            (nome, email, senha)
         )
         conn.commit()
         return jsonify({"message": "Usuário registrado com sucesso!"}), 201
     except Exception as e:
-        print("Erro no cadastro:", e)
+        print("Erro no registro:", e)
         return jsonify({"error": "Erro ao registrar o usuário."}), 500
 
     
