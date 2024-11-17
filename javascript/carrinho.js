@@ -27,7 +27,7 @@ function redirectToCatalog() {
     const password = document.getElementById('password').value;
 
     if (email && password) { 
-        window.location.href = "../html/catalogo.html";
+        window.location.href = "projeto_integrador/catalogo.html";
     } else {
         alert("Por favor, preencha o e-mail e a senha.");
     }
