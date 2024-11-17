@@ -38,7 +38,7 @@ async function registerUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const response = await fetch('http://localhost:5000/api/register', {
+    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, senha }),
@@ -52,7 +52,7 @@ async function loginUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    const response = await fetch('http://localhost:5000/api/login', {
+    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
@@ -61,7 +61,7 @@ async function loginUser() {
     const result = await response.json();
 
     if (response.status === 200) {
-        window.location.href = "catalogo.html";
+        window.location.href = "projeto_integrador/catalogo.html";
     } else {
         alert(result.error);
     }
