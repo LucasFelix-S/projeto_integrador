@@ -1,0 +1,88 @@
+<html lang="br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIT - Catálogo de Produtos</title>
+    <link rel="stylesheet" href="../css/catalogo.css">
+</head>
+<body>
+    <div class="catalog-container">
+        <h1>Padaria Cruzeiro do Sul - Nossos Produtos</h1>
+        <div class ="info-icon">i</div>
+        <div class = "info-popup">
+            Site fictício criado para o Projeto Integrador Transdisciplinar. Nada deste site é oficial. Apenas para fins didáticos.
+        </div>
+
+        <div id="cart-icon-container" onclick="toggleCart()">
+            <img src="../assets/carrinho.png" alt="Carrinho - créditos para uicon" id="cart-icon">
+        </div>
+
+        <div id="cart-container" class="cart-container" style="display: none;">
+            <h2>Meu Carrinho</h2>
+            <div id="cart-items"></div>
+            <p id="cart-total">Total: R$ 0,00</p>
+            <button onclick="finalizarCompra()">Finalizar Compra</button>
+            <button onclick="toggleCart()">Fechar Carrinho</button>
+        </div>
+
+        <div class="product-row">
+            <div class="product">
+                <img src="../assets/cafe_expresso.jpg" alt="Café Expresso">
+                <button onclick="addToCart('Café Expresso', 5.00)">Adicionar ao Carrinho</button>
+                <p>Café Expresso - R$ 5,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/cappuccino.jpg" alt="Cappuccino">
+                <button onclick="addToCart('Cappuccino', 8.00)">Adicionar ao Carrinho</button>
+                <p>Cappuccino - R$ 8,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/suco_natural.jpg" alt="Suco Natural">
+                <button onclick="addToCart('Suco Natural', 8.00)">Adicionar ao Carrinho</button>
+                <p>Suco Natural - R$ 8,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/cafe_correto.jpg" alt="Café Tradicional">
+                <button onclick="addToCart('Café Tradicional', 3.99)">Adicionar ao Carrinho</button>
+                <p>Café Tradicional - R$ 3,99</p>
+            </div>
+            <div class="product">
+                <img src="../assets/bolo_chocolate.jpg" alt="Bolo de Chocolate">
+                <button onclick="addToCart('Fatia de Bolo de Chocolate', 5.00)">Adicionar ao Carrinho</button>
+                <p>Fatia de Bolo de Chocolate - R$ 5,00</p>
+            </div>
+        </div>
+        <div class="product-row">
+            <div class="product">
+                <img src="../assets/baguete.jpg" alt="Cappuccino">
+                <button onclick="addToCart('Baguete', 3.99)">Adicionar ao Carrinho</button>
+                <p>Baguete - R$ 3,99</p>
+            </div>
+            <div class="product">
+                <img src="../assets/coxinha.jpg" alt="Coxinha Grande">
+                <button onclick="addToCart('Salgado Coxinha Grande', 7.00)">Adicionar ao Carrinho</button>
+                <p>Salgado Coxinha Grande - R$ 7,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/lanche_natural.jpg" alt="Lanche Natural">
+                <button onclick="addToCart('Lanche Natural', 8.00)">Adicionar ao Carrinho</button>
+                <p>Lanche Natural - R$ 8,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/pudim.jpg" alt="Pizza Pequena">
+                <button onclick="addToCart('Pudim', 7.00)">Adicionar ao Carrinho</button>
+                <p>Pudim - R$ 7,00</p>
+            </div>
+            <div class="product">
+                <img src="../assets/croissant.jpg" alt="Croissant">
+                <button onclick="addToCart('Croissant', 5.00)">Adicionar ao Carrinho</button>
+                <p>Croissant - R$ 5,00</p>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Desenvolvido por Lucas Felix Santos - RGM 25875078</p>
+    </footer>
+    <script src="../javascript/carrinho.js"></script>
+</body>
+</html>

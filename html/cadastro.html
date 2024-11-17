@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIT - Tela de Cadastro</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/cadastro.css">
+</head>
+<body>
+    <div class ="info-icon">i</div>
+    <div class = "info-popup">
+        Site fictício criado para o Projeto Integrador Transdisciplinar. Nada deste site é oficial. Apenas para fins didáticos.
+    </div>
+    <div class="cadastro-container">
+        <h1>Crie sua conta</h1>
+        <form class="cadastro-form">
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Digite seu email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" placeholder="Crie uma senha" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmar-senha">Confirmar Senha:</label>
+                <input type="password" id="confirmar-senha" placeholder="Confirme sua senha" required>
+            </div>
+            <button type="button" onclick="registerUser()" class="cadastro-button">Cadastrar</button>
+        </form>
+        <p class="login-link">Já tem uma conta? <a href="login.html">Faça login</a></p>
+    </div>
+    <footer class="footer">
+        <p>Desenvolvido por Lucas Felix Santos - RGM 25875078</p>
+    </footer>
+    <script src="../javascript/carrinho.js"></script>
+</body>
+</html>
