@@ -52,7 +52,7 @@ async function loginUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/', {
+    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/catalogo.html', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
