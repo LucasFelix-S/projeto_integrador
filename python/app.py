@@ -63,6 +63,10 @@ def login():
     except Exception as e:
         print("Erro no login:", e)
         return jsonify({"error": "Erro ao processar o login."}), 500
+    
+@app.route('/api/test', methods=['GET'])
+def test_endpoint():
+    return jsonify({"message": "API está funcionando!"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0', port=5000)
