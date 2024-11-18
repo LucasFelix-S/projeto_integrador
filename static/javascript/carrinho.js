@@ -1,39 +1,14 @@
+// Tornar as funções globais
 window.registerUser = registerUser;
 window.loginUser = loginUser;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.finalizarCompra = finalizarCompra;
+window.toggleCart = toggleCart;
+window.increaseQuantity = increaseQuantity;
+window.decreaseQuantity = decreaseQuantity;
+
 const cart = [];
-
-function addToCart(name, price) {
-    cart.push({ name, price });
-    renderCart();
-}
-
-function renderCart() {
-    const cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = '';
-    cart.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
-        cartItems.appendChild(div);
-    });
-    document.getElementById('cart').style.display = 'block';
-}
-
-function toggleCart() {
-    const cartElement = document.getElementById('cart');
-    cartElement.style.display = cartElement.style.display === 'block' ? 'none' : 'block';
-}
-
-function redirectToCatalog() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (email && password) { 
-        window.location.href = "catalogo.html";
-    } else {
-        alert("Por favor, preencha o e-mail e a senha.");
-    }
-}
 
 // Base URL do backend
 const BASE_URL = 'https://oyster-app-gik5j.ondigitalocean.app';
@@ -44,18 +19,22 @@ async function registerUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const response = await fetch(`${BASE_URL}/api/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, email, senha }),
-    });
+    try {
+        const response = await fetch(`${BASE_URL}/api/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, email, senha }),
+        });
 
-    const result = await response.json();
-    if (response.status === 201) {
-        alert(result.message);
-        window.location.href = "../index.html"; // Redirecionar para a página de login
-    } else {
-        alert(result.error);
+        const result = await response.json();
+        if (response.status === 201) {
+            alert(result.message);
+            window.location.href = "index.html"; // Redirecionar para a página de login
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error("Erro ao registrar:", error);
     }
 }
 
@@ -64,48 +43,37 @@ async function loginUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    const response = await fetch(`${BASE_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha }),
-    });
+    try {
+        const response = await fetch(`${BASE_URL}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, senha }),
+        });
 
-    const result = await response.json();
-
-    if (response.status === 200) {
-        alert(result.message);
-        window.location.href = "../catalogo.html"; // Redirecionar para o catálogo
-    } else {
-        alert(result.error);
+        const result = await response.json();
+        if (response.status === 200) {
+            alert(result.message);
+            window.location.href = "catalogo.html"; // Redirecionar para o catálogo
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error("Erro ao fazer login:", error);
     }
 }
 
-    const result = await response.json();
-
-    if (response.status === 200) {
-        window.location.href = "catalogo.html";
-    } else {
-        alert(result.error);
-    }
-
-
+// Adicionar item ao carrinho
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
-
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
         cart.push({ name, price, quantity: 1 });
     }
-
     updateCart();
-
-    const cartContainer = document.getElementById("cart-container");
-    if (cartContainer.style.display === "none" || cartContainer.style.display === "") {
-        toggleCart();
-    }
 }
 
+// Atualizar itens do carrinho
 function updateCart() {
     const cartItemsContainer = document.getElementById("cart-items");
     cartItemsContainer.innerHTML = "";
@@ -124,7 +92,6 @@ function updateCart() {
             </div>
             <button class="remove-item" onclick="removeFromCart(${index})">Remover</button>
         `;
-
         cartItemsContainer.appendChild(cartItem);
     });
 
@@ -132,11 +99,13 @@ function updateCart() {
     document.getElementById("cart-total").innerText = `Total: R$ ${cartTotal.toFixed(2)}`;
 }
 
+// Remover item do carrinho
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCart();
 }
 
+// Finalizar compra
 function finalizarCompra() {
     const confirmation = confirm("Compra finalizada! Obrigado pela preferência.");
     if (confirmation) {
@@ -144,6 +113,7 @@ function finalizarCompra() {
     }
 }
 
+// Alternar exibição do carrinho
 function toggleCart() {
     const cartContainer = document.getElementById("cart-container");
     if (cartContainer.style.display === "none" || cartContainer.style.display === "") {
@@ -153,11 +123,13 @@ function toggleCart() {
     }
 }
 
+// Aumentar quantidade de itens
 function increaseQuantity(index) {
     cart[index].quantity += 1;
     updateCart();
 }
 
+// Diminuir quantidade de itens
 function decreaseQuantity(index) {
     if (cart[index].quantity > 1) {
         cart[index].quantity -= 1;
