@@ -21,9 +21,13 @@ def register():
         email = data.get('email')
         senha = data.get('senha')
 
+        # Hash da senha usando bcrypt
+        hashed_password = bcrypt.generate_password_hash(senha).decode('utf-8')
+
+        # Insere no banco
         cursor.execute(
             "INSERT INTO Cliente (nome, email, senha) VALUES (%s, %s, %s)",
-            (nome, email, senha)
+            (nome, email, hashed_password)
         )
         conn.commit()
         return jsonify({"message": "Usuário registrado com sucesso!"}), 201
@@ -31,7 +35,7 @@ def register():
         print("Erro no registro:", e)
         return jsonify({"error": "Erro ao registrar o usuário."}), 500
 
-    
+
 @app.route('/api/login', methods=['POST'])
 def login():
     try:
@@ -39,6 +43,7 @@ def login():
         email = data.get('email')
         senha_digitada = data.get('senha')
 
+        # Busca o usuário no banco
         cursor.execute("SELECT * FROM Cliente WHERE email = %s", (email,))
         user = cursor.fetchone()
 
@@ -47,6 +52,7 @@ def login():
 
         user_id, user_name, user_email, user_password = user
 
+        # Verifica a senha usando bcrypt
         if not bcrypt.check_password_hash(user_password, senha_digitada):
             return jsonify({"error": "E-mail ou senha inválidos."}), 401
 
