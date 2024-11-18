@@ -11,7 +11,7 @@ window.decreaseQuantity = decreaseQuantity;
 const cart = [];
 
 // Base URL do backend
-const BASE_URL = 'http://127.0.0.1:5000';
+const BASE_URL = 'https://oyster-app-gik5j.ondigitalocean.app';
 
 // Função para registrar usuário
 async function registerUser() {
