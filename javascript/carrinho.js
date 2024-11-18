@@ -1,3 +1,4 @@
+window.registerUser = registerUser;
 const cart = [];
 
 function addToCart(name, price) {
@@ -27,7 +28,7 @@ function redirectToCatalog() {
     const password = document.getElementById('password').value;
 
     if (email && password) { 
-        window.location.href = "projeto_integrador/catalogo.html";
+        window.location.href = "catalogo.html";
     } else {
         alert("Por favor, preencha o e-mail e a senha.");
     }
@@ -42,7 +43,7 @@ async function registerUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${BASE_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, senha }),
