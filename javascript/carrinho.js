@@ -26,15 +26,16 @@ async function registerUser() {
             body: JSON.stringify({ nome, email, senha }),
         });
 
-        const result = await response.json();
-        if (response.status === 201) {
-            alert(result.message);
-            window.location.href = "../templates/index.html"; // Redirecionar para a página de login
-        } else {
-            alert(result.error);
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
         }
+
+        const result = await response.json();
+        alert(result.message);
+        window.location.href = "index.html"; // Redirecionar para a página de login
     } catch (error) {
-        console.error("Erro ao registrar:", error);
+        console.error('Erro ao registrar:', error);
+        alert('Erro ao registrar. Verifique sua conexão ou tente novamente.');
     }
 }
 
