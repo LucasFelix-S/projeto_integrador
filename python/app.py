@@ -5,7 +5,7 @@ import psycopg2
 import os
 
 app = Flask(__name__, static_folder='static')
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}} )
 bcrypt = Bcrypt(app)
 
 conn = psycopg2.connect(
