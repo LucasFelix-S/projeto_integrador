@@ -1,4 +1,5 @@
 window.registerUser = registerUser;
+window.loginUser = loginUser;
 const cart = [];
 
 function addToCart(name, price) {
@@ -82,7 +83,7 @@ async function loginUser() {
     const result = await response.json();
 
     if (response.status === 200) {
-        window.location.href = "projeto_integrador/catalogo.html";
+        window.location.href = "../catalogo.html";
     } else {
         alert(result.error);
     }
