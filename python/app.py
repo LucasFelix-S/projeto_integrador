@@ -8,9 +8,12 @@ app = Flask(__name__, static_folder='static')
 CORS(app)
 bcrypt = Bcrypt(app)
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg2.connect(
+    host="localhost",
+    database="projeto_integrador",
+    user="postgres",
+    password="!#Y1e3xbf4",
+)
 cursor = conn.cursor()
 
 @app.route('/api/register', methods=['POST'])
