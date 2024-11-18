@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 import psycopg2
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 bcrypt = Bcrypt(app)
 
