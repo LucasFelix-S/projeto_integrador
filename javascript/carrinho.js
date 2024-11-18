@@ -33,26 +33,36 @@ function redirectToCatalog() {
     }
 }
 
+// Base URL do backend
+const BASE_URL = 'https://oyster-app-gik5j.ondigitalocean.app';
+
+// Função para registrar usuário
 async function registerUser() {
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/', {
+    const response = await fetch(`${BASE_URL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome, email, senha }),
     });
 
     const result = await response.json();
-    alert(result.message || result.error);
+    if (response.status === 201) {
+        alert(result.message);
+        window.location.href = "index.html"; // Redirecionar para a página de login
+    } else {
+        alert(result.error);
+    }
 }
 
+// Função para login
 async function loginUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    const response = await fetch('https://oyster-app-gik5j.ondigitalocean.app/catalogo.html', {
+    const response = await fetch(`${BASE_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
@@ -61,11 +71,21 @@ async function loginUser() {
     const result = await response.json();
 
     if (response.status === 200) {
-        window.location.href = "projeto_integrador/catalogo.html";
+        alert(result.message);
+        window.location.href = "catalogo.html"; // Redirecionar para o catálogo
     } else {
         alert(result.error);
     }
 }
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+        window.location.href = "projeto_integrador/catalogo.html";
+    } else {
+        alert(result.error);
+    }
+
 
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
