@@ -53,7 +53,7 @@ async function registerUser() {
     const result = await response.json();
     if (response.status === 201) {
         alert(result.message);
-        window.location.href = "index.html"; // Redirecionar para a página de login
+        window.location.href = "../index.html"; // Redirecionar para a página de login
     } else {
         alert(result.error);
     }
@@ -74,7 +74,7 @@ async function loginUser() {
 
     if (response.status === 200) {
         alert(result.message);
-        window.location.href = "catalogo.html"; // Redirecionar para o catálogo
+        window.location.href = "../catalogo.html"; // Redirecionar para o catálogo
     } else {
         alert(result.error);
     }
