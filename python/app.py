@@ -9,12 +9,10 @@ CORS(app, resources={r"/*": {"origins": "*"}} )
 bcrypt = Bcrypt(app)
 
 conn = psycopg2.connect(
-    host="db-postgresql-nyc3-60782-do-user-18341592-0.i.db.ondigitalocean.com",
-    database="defaultdb",
-    user="doadmin",
-    password="AVNS_W1gF6BStA8ae6nqqLed",
-    port=25060,
-    sslmode="require"
+    host="localhost",
+    database="projeto_integrador",
+    user="postgres",
+    password="!#Y1e3xbf4",
 )
 cursor = conn.cursor()
 
