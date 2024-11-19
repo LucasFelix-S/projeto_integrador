@@ -1,4 +1,3 @@
-// Tornar as funções globais
 window.registerUser = registerUser;
 window.loginUser = loginUser;
 window.addToCart = addToCart;
@@ -10,60 +9,52 @@ window.decreaseQuantity = decreaseQuantity;
 
 const cart = [];
 
-// Base URL do backend
-const BASE_URL = 'http://127.0.0.1:5500';
-
-// Função para registrar usuário
-async function registerUser() {
+function registerUser() {
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    try {
-        const response = await fetch(`${BASE_URL}/api/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, email, senha }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro: ${response.status}`);
-        }
-
-        const result = await response.json();
-        alert(result.message);
-        window.location.href = "index.html"; // Redirecionar para a página de login
-    } catch (error) {
-        console.error('Erro ao registrar:', error);
-        alert('Erro ao registrar. Verifique sua conexão ou tente novamente.');
+    if (!nome || !email || !senha) {
+        alert("Por favor, preencha todos os campos.");
+        return;
     }
+
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    const usuarioExistente = usuarios.find(usuario => usuario.email === email);
+    if (usuarioExistente) {
+        alert("Este e-mail já está registrado.");
+        return;
+    }
+
+    usuarios.push({ nome, email, senha });
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    alert("Usuário registrado com sucesso!");
+    window.location.href = "index.html";
 }
 
-// Função para login
-async function loginUser() {
+function loginUser() {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('password').value;
 
-    try {
-        const response = await fetch(`${BASE_URL}/api/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, senha }),
-        });
+    if (!email || !senha) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
 
-        const result = await response.json();
-        if (response.status === 200) {
-            alert(result.message);
-            window.location.href = "../templates/catalogo.html"; // Redirecionar para o catálogo
-        } else {
-            alert(result.error);
-        }
-    } catch (error) {
-        console.error("Erro ao fazer login:", error);
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    const usuario = usuarios.find(usuario => usuario.email === email && usuario.senha === senha);
+
+    if (usuario) {
+        alert(`Bem-vindo(a), ${usuario.nome}!`);
+        window.location.href = "catalogo.html";
+    } else {
+        alert("E-mail ou senha inválidos.");
     }
 }
 
-// Adicionar item ao carrinho
 function addToCart(name, price) {
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
@@ -74,7 +65,6 @@ function addToCart(name, price) {
     updateCart();
 }
 
-// Atualizar itens do carrinho
 function updateCart() {
     const cartItemsContainer = document.getElementById("cart-items");
     cartItemsContainer.innerHTML = "";
@@ -100,21 +90,20 @@ function updateCart() {
     document.getElementById("cart-total").innerText = `Total: R$ ${cartTotal.toFixed(2)}`;
 }
 
-// Remover item do carrinho
 function removeFromCart(index) {
     cart.splice(index, 1);
     updateCart();
 }
 
-// Finalizar compra
 function finalizarCompra() {
     const confirmation = confirm("Compra finalizada! Obrigado pela preferência.");
     if (confirmation) {
+        cart.length = 0;
+        updateCart();
         window.location.href = "final.html";
     }
 }
 
-// Alternar exibição do carrinho
 function toggleCart() {
     const cartContainer = document.getElementById("cart-container");
     if (cartContainer.style.display === "none" || cartContainer.style.display === "") {
@@ -124,13 +113,11 @@ function toggleCart() {
     }
 }
 
-// Aumentar quantidade de itens
 function increaseQuantity(index) {
     cart[index].quantity += 1;
     updateCart();
 }
 
-// Diminuir quantidade de itens
 function decreaseQuantity(index) {
     if (cart[index].quantity > 1) {
         cart[index].quantity -= 1;

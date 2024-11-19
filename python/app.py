@@ -2,10 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import psycopg2
-import os
 
 app = Flask(__name__, static_folder='static')
-CORS(app, resources={r"/*": {"origins": "*"}} )
+CORS(app, resources={r"/api/*": {"origins": "*"}} )
 bcrypt = Bcrypt(app)
 
 conn = psycopg2.connect(
@@ -24,10 +23,8 @@ def register():
         email = data.get('email')
         senha = data.get('senha')
 
-        # Hash da senha usando bcrypt
         hashed_password = bcrypt.generate_password_hash(senha).decode('utf-8')
 
-        # Insere no banco
         cursor.execute(
             "INSERT INTO Cliente (nome, email, senha) VALUES (%s, %s, %s)",
             (nome, email, hashed_password)
@@ -46,7 +43,6 @@ def login():
         email = data.get('email')
         senha_digitada = data.get('senha')
 
-        # Busca o usuário no banco
         cursor.execute("SELECT * FROM Cliente WHERE email = %s", (email,))
         user = cursor.fetchone()
 
@@ -55,7 +51,6 @@ def login():
 
         user_id, user_name, user_email, user_password = user
 
-        # Verifica a senha usando bcrypt
         if not bcrypt.check_password_hash(user_password, senha_digitada):
             return jsonify({"error": "E-mail ou senha inválidos."}), 401
 
@@ -63,10 +58,6 @@ def login():
     except Exception as e:
         print("Erro no login:", e)
         return jsonify({"error": "Erro ao processar o login."}), 500
-    
-@app.route('/api/test', methods=['GET'])
-def test_endpoint():
-    return jsonify({"message": "API está funcionando corretamente!"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
